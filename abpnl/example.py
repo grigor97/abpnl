@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 from typing import TypeAlias, Any
-import numpy as np
 from numpy.typing import NDArray
 
 from train import AbPNLTrainer
 from synthproblems import PostNonlinearNToOne, generate_samples
+
+from generate_data import *
+from utils import *
 
 T: TypeAlias = NDArray[np.floating[Any]]
 
@@ -18,9 +20,36 @@ def n_rev(a: T, b: T) -> Any:
     return ((a != 0) * (b != 0).T).sum()
 
 
+def sample() -> None:
+    n = 200
+    d = 4
+    A, x = simulate_mult_pnl_erdos_renyi(n, d, "evd", "cube")
+    k = int(0.5*n)
+    x_train = x[:k]
+    x_test = x[k:]
+
+    params = AbPNLTrainer.default_params
+    params["logdir"] = "results/eg1"
+    params["max_workers"] = 15
+
+    abpnl = AbPNLTrainer(params)
+    abpnl.doit(x_train, x_test)
+
+    co = abpnl.causal_order
+    # am = abpnl.adjacency_matrix
+
+    print(co[::-1])
+    print(A)
+    wrong = compute_wrong_orders(co[::-1], A)
+    print(wrong)
+    # print(am)
+    # print((a != 0.) + 0)
+    # print("d_edit:", d_edit(a, am), "n_rev:", n_rev(a, am))
+
+
 def sample1() -> None:
     """Linear problem"""
-    n = 2000
+    n = 200
     d = 4
     rng = np.random.RandomState(seed=123)
 
@@ -43,12 +72,12 @@ def sample1() -> None:
     abpnl.doit(x_train, x_test)
 
     co = abpnl.causal_order
-    am = abpnl.adjacency_matrix
+    # am = abpnl.adjacency_matrix
 
-    print(co)
-    print(am)
-    print((a != 0.) + 0)
-    print("d_edit:", d_edit(a, am), "n_rev:", n_rev(a, am))
+    print(co[::-1])
+    # print(am)
+    # print((a != 0.) + 0)
+    # print("d_edit:", d_edit(a, am), "n_rev:", n_rev(a, am))
 
 
 def sample2() -> None:
@@ -91,5 +120,6 @@ def sample2() -> None:
 
 
 if __name__ == "__main__":
-    sample1()
+    sample()
+    # sample1()
     # sample2()
