@@ -39,7 +39,7 @@ def run_sample(n, d, name_noise, name_h):
 
 if __name__ == "__main__":
     n = 100
-    d = 4
+    d = 3
     num_datasets = 2
     name_noise = "gaussian"
     name_h = "cube"
@@ -51,7 +51,5 @@ if __name__ == "__main__":
     print(wrongs)
 
     df = pd.Series(wrongs)
-    file_name = "abpnl_results_" + name_noise + "_" + name_h + "_" + "abpnl" + str(n) + "_" + str(d) + str(num_datasets)
-    df.to_csv(file_name)
-    # sample1()
-    # sample2()
+    file_name = "../abpnl_results_" + name_noise + "_" + name_h + "_" + "abpnl" + str(n) + "_" + str(d) + str(num_datasets) + ".csv"
+    df.to_csv(file_name, index=False)
