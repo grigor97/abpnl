@@ -121,7 +121,7 @@ class AbPNLTrainer(object):
             self._find_sink()
         top = self._variables[0]
         self._causal_order.append(top)
-        self._prune()
+        # self._prune()
 
     def _find_sink(self) -> None:
         logs = self._train_all_ntoone_parallel()
