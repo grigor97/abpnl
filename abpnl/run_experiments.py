@@ -11,6 +11,8 @@ from synthproblems import PostNonlinearNToOne, generate_samples
 from generate_data import *
 from utils import *
 
+import os
+
 T: TypeAlias = NDArray[np.floating[Any]]
 
 
@@ -51,5 +53,7 @@ if __name__ == "__main__":
     print(wrongs)
 
     df = pd.Series(wrongs)
-    file_name = "../abpnl_results_" + name_noise + "_" + name_h + "_" + "abpnl" + str(n) + "_" + str(d) + str(num_datasets) + ".csv"
+    if not os.path.exists("res"):
+        os.makedirs("res")
+    file_name = "res/abpnl_results_" + name_noise + "_" + name_h + "_" + "abpnl" + str(n) + "_" + str(d) + str(num_datasets) + ".csv"
     df.to_csv(file_name, index=False)
