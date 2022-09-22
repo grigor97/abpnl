@@ -39,12 +39,7 @@ def run_sample(n, d, name_noise, name_h):
     return wrong
 
 
-if __name__ == "__main__":
-    n = 100
-    d = 3
-    num_datasets = 2
-    name_noise = "gaussian"
-    name_h = "cube"
+def run_one(n, d, name_noise, name_h, num_datasets):
     wrongs = []
     for j in range(num_datasets):
         wrong = run_sample(n, d, name_noise, name_h)
@@ -53,7 +48,23 @@ if __name__ == "__main__":
     print(wrongs)
 
     df = pd.Series(wrongs)
+    file_name = "res/abpnl_results_" + name_noise + "_" + name_h + "_" + "abpnl" + str(n) + "_" + str(d) + str(
+        num_datasets) + ".csv"
+    df.to_csv(file_name, index=False)
+
+
+if __name__ == "__main__":
     if not os.path.exists("res"):
         os.makedirs("res")
-    file_name = "res/abpnl_results_" + name_noise + "_" + name_h + "_" + "abpnl" + str(n) + "_" + str(d) + str(num_datasets) + ".csv"
-    df.to_csv(file_name, index=False)
+
+    nn = [100, 150, 200, 250, 300, 350, 500, 1000, 1500, 2000]
+    dd = [4, 7]
+    name_noises = ["gaussian", "evd"]
+
+    name_h = "cube"
+    num_datasets = 100
+
+    for n in nn:
+        for d in dd:
+            for name_noise in name_noises:
+                run_one(n, d, name_noise, name_h, num_datasets)
