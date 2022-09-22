@@ -28,8 +28,8 @@ def simulate_mult_pnl_erdos_renyi(n, d, name_noise="gaussian", name_h="cube"):
             return np.random.gumbel(size=t)
 
     def g(x):
-        beta1 = np.random.uniform(-100, 100, x.shape[1])
-        beta2 = np.random.uniform(-100, 100, x.shape[1])
+        beta1 = np.random.uniform(-10, 10, x.shape[1])
+        beta2 = np.random.uniform(-10, 10, x.shape[1])
         res = np.dot(x, beta1) + np.dot(x ** 2, beta2)
 
         return res
