@@ -26,6 +26,12 @@ def simulate_mult_pnl_erdos_renyi(n, d, name_noise="gaussian", name_h="cube"):
 
         def sample_noise(t):
             return np.random.gumbel(size=t)
+    elif name_noise == "logis" and name_h == "cube":
+        def h_inv(x, pw=1 / 3):
+            return np.sign(x) * abs(x) ** pw
+
+        def sample_noise(t):
+            return np.random.logistic(size=t)
 
     def g(x):
         beta1 = np.random.uniform(-10, 10, x.shape[1])

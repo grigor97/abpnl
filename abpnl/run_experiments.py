@@ -57,9 +57,9 @@ if __name__ == "__main__":
     if not os.path.exists("res"):
         os.makedirs("res")
 
-    nn = [100, 150, 200, 250, 300, 350, 500, 1000, 1500, 2000]
+    nn = [100, 150, 200, 250, 300]
     dd = [4, 7]
-    name_noises = ["gaussian", "evd"]
+    name_noises = ["logis"]
 
     name_h = "cube"
     num_datasets = 100
