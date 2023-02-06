@@ -58,7 +58,7 @@ if __name__ == "__main__":
         os.makedirs("res")
 
     nn = [100, 150, 200, 250, 300]
-    dd = [4, 7]
+    dd = [4]
     name_noises = ["logis"]
 
     name_h = "cube"
