@@ -36,7 +36,9 @@ def simulate_mult_pnl_erdos_renyi(n, d, name_noise="gaussian", name_h="cube"):
     def g(x):
         beta1 = np.random.uniform(-10, 10, x.shape[1])
         beta2 = np.random.uniform(-10, 10, x.shape[1])
-        res = np.dot(x, beta1) + np.dot(x ** 2, beta2)
+        beta3 = np.random.uniform(-10, 10, x.shape[1])
+        beta4 = np.random.uniform(-10, 10, x.shape[1])
+        res = np.dot(x, beta1) + np.dot(x ** 2, beta2) + np.dot(x ** 3, beta3) + np.dot(x ** 4, beta4)
 
         return res
 
